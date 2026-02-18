@@ -1,0 +1,17 @@
+# Docker data
+data/
+logs/
+cache/
+
+# Sunshine private config and credentials
+config/*
+!config/apps.json
+!config/sunshine.conf
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Potential env files
+.env
+*.log

@@ -1,0 +1,30 @@
+services:
+  minecraft-gaming:
+    build: .
+    container_name: minecraft-debian
+    privileged: true
+    network_mode: host
+    environment:
+      - TZ=Asia/Jakarta
+      - DISPLAY=:1
+    devices:
+      - /dev/dri:/dev/dri      # Intel GPU
+      - /dev/uinput:/dev/uinput # Mouse/Keyboard Control
+    user: "1003:1003"
+    group_add:
+      - "44"  # video
+      - "105" # render
+    volumes:
+      - ./config:/home/mel-gaming/.config/sunshine
+      - ./data:/home/mel-gaming/.local/share/PrismLauncher
+      - ./logs:/home/mel-gaming/.cache/PrismLauncher/logs
+      - ./cache:/home/mel-gaming/.cache/mesa_shader_cache
+      - /run/dbus:/run/dbus
+      - /dev/shm:/dev/shm
+    restart: unless-stopped
+    # Limit resources to protect website
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
